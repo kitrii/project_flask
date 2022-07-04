@@ -26,28 +26,11 @@ def login():
             flash('Пользователя с таким логином не существует.', category='error')
     return render_template('login.html', user=current_user)
 
-'''def login_user():
-    session['user_logged'] = 1
-
-def is_logged():
-    return True if session.get['user_logged'] else False
-
-def logout_user():
-    session.pop('user_logged', None)
-
-
-@auth.route('/logout')
-def logout():
-    if not is_logged
-    logout_user()
-    return redirect(url_for('auth.login'))'''
-
 @auth.route('/logout')
 @login_required
 def logout():
     logout_user()
     return redirect(url_for('auth.login'))
-
 
 @auth.route('/sign-up', methods = ['GET','POST'])
 def sign_up():
@@ -59,15 +42,15 @@ def sign_up():
 
         user = User.query.filter_by(email=email).first()
         if user:
-            flash('Email already exists.', category='error')
+            flash('Пользователь с таким email уже существует.', category='error')
         elif len(email) < 4:
-            flash('Email must be greater than 3 characters.', category='error')
+            flash('Email должен содержать более 3-ёх символов.', category='error')
         elif len(first_name) < 2:
-            flash('First name must be greater than 1 character.', category='error')
+            flash('Имя должно содержать более 1-ого символа.', category='error')
         elif password1 != password2:
-            flash('Passwords don\'t match.', category='error')
+            flash('Пароли не совпадают.', category='error')
         elif len(password1) < 7:
-            flash('Password must be at least 7 characters.', category='error')
+            flash('Пароль должен содержать как минимум 7 символов.', category='error')
         else:
             new_user = User(email=email, 
             first_name = first_name,
